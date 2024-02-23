@@ -35,16 +35,23 @@ const char *fragmentShaderSource = R"(
     }
 )";
 
+
+void glfw_error_callback(int error, const char* description) {
+    std::cerr << "Error: " << description << std::endl;
+}
+
+
 int main() {
 
+    glfwSetErrorCallback(glfw_error_callback);
 
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW\n";
         return -1;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWwindow *window = glfwCreateWindow(800, 600, "Triangle Wireframe Renderer", nullptr, nullptr);
@@ -95,6 +102,8 @@ int main() {
     interface.init(vertices, indices);
     // interface ends
 
+
+
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -140,6 +149,7 @@ int main() {
 
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, indices.size() * 3, GL_UNSIGNED_INT, 0);
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();
