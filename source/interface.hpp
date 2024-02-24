@@ -45,7 +45,7 @@ public:
                 int i1 = cloth->index(irow, icol);
                 int i2 = cloth->index(irow, icol + 1);
                 int i3 = cloth->index(irow + 1, icol);
-                int i4 = cloth->index(irow, icol + 1);
+                int i4 = cloth->index(irow + 1, icol + 1);
 
                 indices.push_back({i1, i2, i3});
                 indices.push_back({i1, i3, i4});
